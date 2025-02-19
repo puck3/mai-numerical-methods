@@ -1,11 +1,11 @@
 #include <iostream>
 #include <vector>
 
-#include "matrix.hpp"
+#include "SquareMatrix.hpp"
 
 int main() {
   int n = 4;
-  Matrix m(4, 4);
+  SquareMatrix m(4);
   std::cin >> m;
   std::cout << m;
 }

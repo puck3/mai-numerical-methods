@@ -3,4 +3,4 @@ project(task-1.1)
 
 include_directories(include)
 
-add_executable(task-1.1 src/main.cpp src/matrix.cpp)
+add_executable(task-1.1 src/main.cpp src/SquareMatrix.cpp)
