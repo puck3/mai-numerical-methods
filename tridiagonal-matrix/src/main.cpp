@@ -14,18 +14,12 @@ input() {
   std::vector<double> b(n);
 
   for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-      double elem;
-      std::cin >> elem;
-      if (i == j) {
-        mainDiagonal[i] = elem;
-      } else if (i == j + 1) {
-        lowerDiagonal[j] = elem;
-      } else if (i + 1 == j) {
-        upperDiagonal[i] = elem;
-      } else if (elem != 0) {
-        throw std::runtime_error("Matrix is not tridiagonal");
-      }
+    if (i > 0) {
+      std::cin >> lowerDiagonal[i - 1];
+    }
+    std::cin >> mainDiagonal[i];
+    if (i < (n - 1)) {
+      std::cin >> upperDiagonal[i];
     }
     std::cin >> b[i];
   }
