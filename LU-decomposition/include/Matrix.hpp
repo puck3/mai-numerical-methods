@@ -3,36 +3,26 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
-
 class Matrix {
  private:
-  vector<vector<double>> data;
+  std::vector<std::vector<double>> data;
   size_t rows, cols;
 
  public:
-  Matrix(size_t n = 0, size_t m = 0, double init = 0.0)
-      : rows(n), cols(m), data(n, vector<double>(m, init)) {}
+  Matrix(size_t n = 0, size_t m = 0, double init = 0.0);
 
-  Matrix(const vector<vector<double>>& d)
-      : data(d), rows(d.size()), cols(d.empty() ? 0 : d[0].size()) {}
+  Matrix(const std::vector<std::vector<double>>& d);
 
-  size_t getRows() const { return rows; }
-  size_t getCols() const { return cols; }
+  size_t getRows() const;
+  size_t getCols() const;
 
-  double& operator()(size_t i, size_t j) { return data[i][j]; }
-  const double& operator()(size_t i, size_t j) const { return data[i][j]; }
+  double& operator()(size_t i, size_t j);
+  const double& operator()(size_t i, size_t j) const;
 
-  void swap_rows(size_t i, size_t j) { swap(data[i], data[j]); }
+  void swap_rows(size_t i, size_t j);
 
-  vector<double>& operator[](size_t i) { return data[i]; }
-  const vector<double>& operator[](size_t i) const { return data[i]; }
+  std::vector<double>& operator[](size_t i);
+  const std::vector<double>& operator[](size_t i) const;
 
-  void print(const string& title = "") const {
-    if (!title.empty()) cout << title << endl;
-    for (const auto& row : data) {
-      for (double val : row) cout << val << "\t";
-      cout << endl;
-    }
-  }
+  void print(const std::string& title = "") const;
 };
