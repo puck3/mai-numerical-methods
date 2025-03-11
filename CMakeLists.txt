@@ -6,3 +6,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_subdirectory(LU-decomposition)
 add_subdirectory(tridiagonal-matrix)
+add_subdirectory(iterative-methods)
