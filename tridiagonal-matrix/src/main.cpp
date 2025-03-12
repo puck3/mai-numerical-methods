@@ -26,6 +26,28 @@ input() {
   return {a, b, c, d};
 }
 
+void check_solution(const std::vector<double>& a, const std::vector<double>& b,
+                    const std::vector<double>& c, const std::vector<double>& d,
+                    const std::vector<double>& x) {
+  std::cout << "A * x = (";
+  double di = 0;
+  for (int i = 0; i < x.size(); ++i) {
+    if (i > 0) {
+      di += x[i - 1] * a[i - 1];
+    }
+    di += x[i] * b[i];
+    if (i < x.size() - 1) {
+      di += x[i + 1] * c[i];
+    }
+    if (di != d[i]) {
+      throw std::runtime_error("Wrong answer");
+    }
+    std::cout << di << " ";
+    di = 0;
+  }
+  std::cout << ")^T" << std::endl;
+}
+
 int main() {
   try {
     std::vector<double> a, b, c, d;
@@ -37,6 +59,8 @@ int main() {
     std::cout << "Solution: ";
     for (double xi : x) std::cout << xi << " ";
     std::cout << std::endl;
+
+    check_solution(a, b, c, d, x);
 
   } catch (const std::exception& e) {
     std::cerr << "Error: " << e.what() << std::endl;
