@@ -20,11 +20,11 @@ class JacobiSolver : public IterativeSolver {
     do {
       x_prev = x;
       for (int i = 0; i < n; ++i) {
-        double sigma = 0.0;
+        double sum = 0.0;
         for (int j = 0; j < n; ++j) {
-          if (i != j) sigma += A[i][j] * x_prev[j];
+          if (i != j) sum += A[i][j] * x_prev[j];
         }
-        x[i] = (b[i] - sigma) / A[i][i];
+        x[i] = (b[i] - sum) / A[i][i];
       }
       iterations++;
 

@@ -47,5 +47,5 @@ class IterativeSolver {
 
   virtual vector<double> solve() = 0;
 
-  int getIterations() const { return iterations; }
+  int get_iterations() const { return iterations; }
 };

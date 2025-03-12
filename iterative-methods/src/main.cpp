@@ -28,13 +28,13 @@ int main() {
     vector<double> x_jacobi = jacobi.solve();
     cout << "Jacobi solution: ";
     for (double val : x_jacobi) cout << val << " ";
-    cout << "\nIterations: " << jacobi.getIterations() << endl;
+    cout << "\nIterations: " << jacobi.get_iterations() << endl;
 
     SeidelSolver seidel(A, b, eps);
     vector<double> x_seidel = seidel.solve();
     cout << "Seidel solution: ";
     for (double val : x_seidel) cout << val << " ";
-    cout << "\nIterations: " << seidel.getIterations() << endl;
+    cout << "\nIterations: " << seidel.get_iterations() << endl;
 
   } catch (const exception& e) {
     cerr << "Error: " << e.what() << endl;
