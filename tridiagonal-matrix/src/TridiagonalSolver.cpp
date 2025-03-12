@@ -24,19 +24,25 @@ void TridiagonalSolver::solve() {
 
   P[0] = -c[0] / b[0];
   Q[0] = d[0] / b[0];
+  if (abs(P[0]) > 1) {
+    throw std::runtime_error("Matrix is unstable");
+  }
 
   for (int i = 1; i < n - 1; ++i) {
     double denom = b[i] + a[i - 1] * P[i - 1];
     if (abs(denom) < 1e-10) {
-      throw std::runtime_error("Matrix is singular or unstable");
+      throw std::runtime_error("Matrix is singular");
     }
     P[i] = -c[i] / denom;
     Q[i] = (d[i] - a[i - 1] * Q[i - 1]) / denom;
+    if (abs(P[i]) > 1) {
+      throw std::runtime_error("Matrix is unstable");
+    }
   }
 
   double denom = b[n - 1] + a[n - 2] * P[n - 2];
   if (abs(denom) < 1e-10) {
-    throw std::runtime_error("Matrix is singular or unstable");
+    throw std::runtime_error("Matrix is singular");
   }
   Q[n - 1] = (d[n - 1] - a[n - 2] * Q[n - 2]) / denom;
 
