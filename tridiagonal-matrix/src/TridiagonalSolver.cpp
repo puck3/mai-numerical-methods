@@ -1,5 +1,6 @@
 #include "TridiagonalSolver.hpp"
 
+#include <cmath>
 #include <stdexcept>
 #include <vector>
 
@@ -24,18 +25,18 @@ void TridiagonalSolver::solve() {
 
   P[0] = -c[0] / b[0];
   Q[0] = d[0] / b[0];
-  if (abs(P[0]) > 1) {
+  if (fabs(P[0]) > 1) {
     throw std::runtime_error("Matrix is unstable");
   }
 
   for (int i = 1; i < n; ++i) {
     double denom = b[i] + a[i - 1] * P[i - 1];
-    if (abs(denom) < 1e-10) {
+    if (fabs(denom) < 1e-10) {
       throw std::runtime_error("Matrix is singular");
     }
     P[i] = -c[i] / denom;
     Q[i] = (d[i] - a[i - 1] * Q[i - 1]) / denom;
-    if (abs(P[i]) > 1) {
+    if (fabs(P[i]) > 1) {
       throw std::runtime_error("Matrix is unstable");
     }
   }
