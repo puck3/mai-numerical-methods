@@ -8,29 +8,29 @@ std::tuple<std::vector<double>, std::vector<double>, std::vector<double>,
 input() {
   int n;
   std::cin >> n;
-  std::vector<double> lowerDiagonal(n - 1);
-  std::vector<double> mainDiagonal(n);
-  std::vector<double> upperDiagonal(n - 1);
+  std::vector<double> a(n - 1);
   std::vector<double> b(n);
+  std::vector<double> c(n - 1);
+  std::vector<double> d(n);
 
   for (int i = 0; i < n; ++i) {
     if (i > 0) {
-      std::cin >> lowerDiagonal[i - 1];
-    }
-    std::cin >> mainDiagonal[i];
-    if (i < (n - 1)) {
-      std::cin >> upperDiagonal[i];
+      std::cin >> a[i - 1];
     }
     std::cin >> b[i];
+    if (i < (n - 1)) {
+      std::cin >> c[i];
+    }
+    std::cin >> d[i];
   }
-  return {lowerDiagonal, mainDiagonal, upperDiagonal, b};
+  return {a, b, c, d};
 }
 
 int main() {
   try {
-    std::vector<double> lowerDiagonal, mainDiagonal, upperDiagonal, b;
-    std::tie(lowerDiagonal, mainDiagonal, upperDiagonal, b) = input();
-    TridiagonalSolver solver(lowerDiagonal, mainDiagonal, upperDiagonal, b);
+    std::vector<double> a, b, c, d;
+    std::tie(a, b, c, d) = input();
+    TridiagonalSolver solver(a, b, c, d);
     solver.solve();
 
     std::vector<double> x = solver.getSolution();

@@ -4,20 +4,18 @@
 
 class TridiagonalSolver {
  private:
-  std::vector<double> upperDiagonal;
-  std::vector<double> mainDiagonal;
-  std::vector<double> lowerDiagonal;
+  std::vector<double> a;
   std::vector<double> b;
+  std::vector<double> c;
+  std::vector<double> d;
   std::vector<double> x;
   int n;
 
   void validate();
 
  public:
-  TridiagonalSolver(const std::vector<double>& lower,
-                    const std::vector<double>& main,
-                    const std::vector<double>& upper,
-                    const std::vector<double>& rhs);
+  TridiagonalSolver(const std::vector<double>& a, const std::vector<double>& b,
+                    const std::vector<double>& c, const std::vector<double>& d);
 
   void solve();
 

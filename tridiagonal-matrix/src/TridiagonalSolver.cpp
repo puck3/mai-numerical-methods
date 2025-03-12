@@ -4,52 +4,47 @@
 #include <vector>
 
 void TridiagonalSolver::validate() {
-  if (mainDiagonal.size() != (size_t)n ||
-      upperDiagonal.size() != (size_t)n - 1 ||
-      lowerDiagonal.size() != (size_t)n - 1 || b.size() != (size_t)n) {
+  if (b.size() != (size_t)n || c.size() != (size_t)n - 1 ||
+      a.size() != (size_t)n - 1 || d.size() != (size_t)n) {
     throw std::invalid_argument("Invalid input sizes");
   }
 }
 
-TridiagonalSolver::TridiagonalSolver(const std::vector<double>& lower,
-                                     const std::vector<double>& main,
-                                     const std::vector<double>& upper,
-                                     const std::vector<double>& rhs)
-    : lowerDiagonal(lower),
-      mainDiagonal(main),
-      upperDiagonal(upper),
-      b(rhs),
-      n(main.size()) {
+TridiagonalSolver::TridiagonalSolver(const std::vector<double>& a,
+                                     const std::vector<double>& b,
+                                     const std::vector<double>& c,
+                                     const std::vector<double>& d)
+    : a(a), b(b), c(c), d(d), n(b.size()) {
   validate();
 }
 
 void TridiagonalSolver::solve() {
-  std::vector<double> alpha(n);
-  std::vector<double> beta(n);
+  std::vector<double> P(n);
+  std::vector<double> Q(n);
 
-  alpha[0] = -upperDiagonal[0] / mainDiagonal[0];
-  beta[0] = b[0] / mainDiagonal[0];
+  P[0] = -c[0] / b[0];
+  Q[0] = d[0] / b[0];
 
   for (int i = 1; i < n - 1; ++i) {
-    double denom = mainDiagonal[i] + lowerDiagonal[i - 1] * alpha[i - 1];
+    double denom = b[i] + a[i - 1] * P[i - 1];
     if (abs(denom) < 1e-10) {
       throw std::runtime_error("Matrix is singular or unstable");
     }
-    alpha[i] = -upperDiagonal[i] / denom;
-    beta[i] = (b[i] - lowerDiagonal[i - 1] * beta[i - 1]) / denom;
+    P[i] = -c[i] / denom;
+    Q[i] = (d[i] - a[i - 1] * Q[i - 1]) / denom;
   }
 
-  double denom = mainDiagonal[n - 1] + lowerDiagonal[n - 2] * alpha[n - 2];
+  double denom = b[n - 1] + a[n - 2] * P[n - 2];
   if (abs(denom) < 1e-10) {
     throw std::runtime_error("Matrix is singular or unstable");
   }
-  beta[n - 1] = (b[n - 1] - lowerDiagonal[n - 2] * beta[n - 2]) / denom;
+  Q[n - 1] = (d[n - 1] - a[n - 2] * Q[n - 2]) / denom;
 
   x.resize(n);
-  x[n - 1] = beta[n - 1];
+  x[n - 1] = Q[n - 1];
 
   for (int i = n - 2; i >= 0; --i) {
-    x[i] = alpha[i] * x[i + 1] + beta[i];
+    x[i] = P[i] * x[i + 1] + Q[i];
   }
 }
 
