@@ -14,7 +14,6 @@ class JacobiSolver : public IterativeSolver {
     prepare();
     int n = A.size();
     vector<double> x_prev(n, 0.0);
-    x.assign(n, 0.0);
     iterations = 0;
 
     do {
@@ -26,7 +25,7 @@ class JacobiSolver : public IterativeSolver {
         }
         x[i] = (b[i] - sum) / A[i][i];
       }
-      iterations++;
+      ++iterations;
 
       vector<double> diff(n);
       for (int i = 0; i < n; ++i) diff[i] = x[i] - x_prev[i];

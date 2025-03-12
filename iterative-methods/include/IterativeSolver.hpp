@@ -16,6 +16,7 @@ class IterativeSolver {
   int iterations;
 
   virtual void prepare() {
+    x.assign(A.size(), 0.0);
     for (size_t i = 0; i < A.size(); ++i) {
       double sum = 0.0;
       for (size_t j = 0; j < A[i].size(); ++j) {
@@ -24,6 +25,7 @@ class IterativeSolver {
       if (fabs(A[i][i]) <= sum) {
         throw runtime_error("No diagonal dominance");
       }
+      x[i] = b[i] / A[i][i];
     }
   }
 
