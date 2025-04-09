@@ -35,7 +35,7 @@ class JacobiEigenSolver {
           p = i;
           q = j;
         }
-        error += A[i][j]*A[i][j];
+        error += A[i][j] * A[i][j];
       }
     }
     error = sqrt(error);
@@ -75,11 +75,7 @@ class JacobiEigenSolver {
  public:
   JacobiEigenSolver(const vector<vector<double>>& mat, double eps = 1e-6,
                     int max_iter = 1000)
-      : A(mat),
-        eps(eps),
-        max_iterations(max_iter),
-        iterations(0),
-        error(0) {
+      : A(mat), eps(eps), max_iterations(max_iter), iterations(0), error(0) {
     validate();
     size_t n = A.size();
     V.resize(n, vector<double>(n, 0.0));
@@ -90,13 +86,12 @@ class JacobiEigenSolver {
 
   void solve() {
     int i, j;
-    iterations = 0;
-    do {
+    for (iterations = 0; iterations < max_iterations; ++iterations) {
       find_max_off_diagonal(i, j);
       if (error < eps) break;
       rotate(i, j);
       iterations++;
-    } while (iterations < max_iterations);
+    }
   }
 
   vector<double> eigenvalues() const {
