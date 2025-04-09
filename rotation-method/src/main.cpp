@@ -81,7 +81,10 @@ int main() {
       }
     }
 
-    JacobiEigenSolver solver(A, 1e-6);
+    double eps;
+    cin >> eps;
+
+    JacobiEigenSolver solver(A, eps);
     solver.solve();
 
     vector<double> eigvals = solver.eigenvalues();
