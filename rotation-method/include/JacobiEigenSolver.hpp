@@ -46,7 +46,8 @@ class JacobiEigenSolver {
     double a_jj = A[j][j];
     double a_ij = A[i][j];
 
-    double phi = 0.5 * atan2(2 * a_ij, a_jj - a_ii);
+    double phi =
+        ((a_ii == a_ij) ? M_PI_4 : (0.5 * atan2(2 * a_ij, a_jj - a_ii)));
     double c = cos(phi);
     double s = sin(phi);
 
