@@ -11,7 +11,6 @@ class SimpleIterationsSolver {
 
   // g'(x) = 1 / (2 * sqrt(5) * cos^2(x) * sqrt(tg(x) + 1))
   // g'(x)∈(0.2; 0.3), ∀x∈[0.4; 0.6]
-  // График производной в файле derivative.svg
   double q = 0.3;
 
  public:

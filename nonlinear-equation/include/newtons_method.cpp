@@ -20,6 +20,9 @@ class NewtonSolver {
 
   double solve(double a, double b, double eps) {
     double x;
+    if (f(a) * f(b) > 0) {
+      throw std::runtime_error("");
+    }
     if (f(a) * h(a) > 0) {
       x = a;
     } else if (f(b) * h(b) > 0) {
