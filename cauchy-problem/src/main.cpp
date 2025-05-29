@@ -5,18 +5,14 @@
 
 using namespace std;
 
-// Точное решение y = x^4 + x^{-3}
 double exact_y(double x) { return pow(x, 4) + pow(x, -3); }
 
-// Производная точного решения y' = 4x^3 - 3x^{-4}
 double exact_dy(double x) { return 4 * pow(x, 3) - 3 * pow(x, -4); }
 
-// Правые части системы ОДУ
 double f_u(double x, double u, double v) { return v; }
 
 double f_v(double x, double u, double v) { return 12.0 * u / (x * x); }
 
-// Метод Эйлера для системы ОДУ
 void euler(double x0, double u0, double v0, double xn, double h,
            vector<double>& x_vec, vector<double>& u_vec,
            vector<double>& v_vec) {
@@ -45,7 +41,6 @@ void euler(double x0, double u0, double v0, double xn, double h,
   }
 }
 
-// Метод Рунге-Кутты 4-го порядка для системы ОДУ
 void rk4(double x0, double u0, double v0, double xn, double h,
          vector<double>& x_vec, vector<double>& u_vec, vector<double>& v_vec) {
   x_vec.clear();
@@ -82,7 +77,6 @@ void rk4(double x0, double u0, double v0, double xn, double h,
   }
 }
 
-// Метод Адамса 4-го порядка (явный) для системы ОДУ
 void adams4(double x0, double u0, double v0, double xn, double h,
             vector<double>& x_vec, vector<double>& u_vec,
             vector<double>& v_vec) {
@@ -91,7 +85,6 @@ void adams4(double x0, double u0, double v0, double xn, double h,
   v_vec.clear();
   vector<double> f_u_vals, f_v_vals;
 
-  // Инициализация первых 4 точек методом Рунге-Кутты
   vector<double> x_temp, u_temp, v_temp;
   rk4(x0, u0, v0, x0 + 3 * h, h, x_temp, u_temp, v_temp);
 
@@ -130,7 +123,6 @@ void adams4(double x0, double u0, double v0, double xn, double h,
   }
 }
 
-// Оценка погрешности методом Рунге-Ромберга
 void runge_romberg(vector<double>& u_h, vector<double>& u_h2, int p,
                    vector<double>& errors) {
   errors.resize(u_h.size());
@@ -147,7 +139,6 @@ int main() {
   double h = 0.1;
   double h2 = h / 2;
 
-  // Метод Эйлера
   vector<double> x_euler, u_euler, v_euler;
   euler(x0, u0, v0, xn, h, x_euler, u_euler, v_euler);
 
@@ -157,7 +148,6 @@ int main() {
   vector<double> rr_errors_euler;
   runge_romberg(u_euler, u_euler_h2, 1, rr_errors_euler);
 
-  // Метод Рунге-Кутты 4-го порядка
   vector<double> x_rk4, u_rk4, v_rk4;
   rk4(x0, u0, v0, xn, h, x_rk4, u_rk4, v_rk4);
 
@@ -167,7 +157,6 @@ int main() {
   vector<double> rr_errors_rk4;
   runge_romberg(u_rk4, u_rk4_h2, 4, rr_errors_rk4);
 
-  // Метод Адамса 4-го порядка
   vector<double> x_adams, u_adams, v_adams;
   adams4(x0, u0, v0, xn, h, x_adams, u_adams, v_adams);
 
@@ -177,7 +166,6 @@ int main() {
   vector<double> rr_errors_adams;
   runge_romberg(u_adams, u_adams_h2, 4, rr_errors_adams);
 
-  // Вывод результатов для метода Эйлера
   cout << "Euler Method (h = 0.1)\n";
   cout << "x\t\tNumerical y\tExact y\t\tTrue Error\tRunge-Romberg Error\n";
   for (size_t i = 0; i < x_euler.size(); ++i) {
@@ -188,7 +176,6 @@ int main() {
          << rr_errors_euler[i] << endl;
   }
 
-  // Вывод результатов для метода Рунге-Кутты
   cout << "\nRunge-Kutta 4th Order (h = 0.1)\n";
   cout << "x\t\tNumerical y\tExact y\t\tTrue Error\tRunge-Romberg Error\n";
   for (size_t i = 0; i < x_rk4.size(); ++i) {
@@ -199,7 +186,6 @@ int main() {
          << rr_errors_rk4[i] << endl;
   }
 
-  // Вывод результатов для метода Адамса
   cout << "\nAdams 4th Order (h = 0.1)\n";
   cout << "x\t\tNumerical y\tExact y\t\tTrue Error\tRunge-Romberg Error\n";
   for (size_t i = 0; i < x_adams.size(); ++i) {
